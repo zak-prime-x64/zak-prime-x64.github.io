@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrap Vehicles Purchasing Agency - Get Cash for Your Car</title>
+    <link rel="stylesheet" href="scrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Scrap Vehicles Purchasing Agency</h1>
+        <p>We purchase all types and all kinds of scrap vehicles which are in running or in waste condition. Our main motive is to support a greener state by removing polluting vehicles, while ensuring you get the fair, actual market rate for the day.</p>
+    </header>
+
+ <div class="video-gallery">
+           <video width="640" height="360" controls>
+  <source src="videos/Hailuo_Video_Create a video for Scrap vehic_448687822862266369.mp4" type="video/mp4"></source>
+  Your browser does not support the video tag.
+</video>
+        </div>
+
+    <main>
+        <section id="quote-form" class="card">
+            <h2 class="section-title"><i class="fas fa-car-crash"></i> Get Your Instant Scrap Quote</h2>
+            <form id="vehicle-form">
+                <div class="form-group">
+                    <label for="company">Company Name:</label>
+                    <input type="text" id="company" name="company" placeholder="e.g., Honda, Ford" required>
+                </div>
+                <div class="form-group">
+                    <label for="model">Model Name:</label>
+                    <input type="text" id="model" name="model" placeholder="e.g., Civic, F-150" required>
+                </div>
+                <div class="form-group">
+                    <label for="year">Manufacturing Year:</label>
+                    <input type="number" id="year" name="year" min="1950" max="2024" placeholder="e.g., 2005" required>
+                </div>
+                <div class="form-group">
+                    <label for="condition">Vehicle Condition:</label>
+                    <select id="condition" name="condition" required>
+                        <option value="">-- Select Condition --</option>
+                        <option value="running">Running/Drivable</option>
+                        <option value="non-running">Non-Running (Complete)</option>
+                        <option value="wrecked">Severely Wrecked/Parts Missing</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="zip-code">Your Zip/Postal Code:</label>
+                    <input type="text" id="zip-code" name="zip-code" placeholder="Service Area Check" required>
+                </div>
+                <button type="submit" class="btn primary-btn">Request Quote & Schedule</button>
+            </form>
+            <p id="quote-result" class="quote-message"></p>
+        </section>
+
+        <section id="schedule-area" class="card">
+            <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Schedule Pickup & Drop</h2>
+            <p>Use the calendar to select your preferred pickup date. A representative will confirm the exact time slot.</p>
+            <div class="form-group">
+                <label for="pickup-date">Preferred Pickup Date:</label>
+                <input type="date" id="pickup-date" name="pickup-date" required>
+            </div>
+            
+            <h3 class="subsection-title"><i class="fas fa-map-marked-alt"></i> Service Area Map</h3>
+            <div class="map-container">
+                <p>  </p>
+                <div class="map-placeholder"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d60920.35519818689!2d78.46912299268187!3d17.386709582627912!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9780c54cb831%3A0x7521ee4348615779!2sAziz%20Plaza!5e0!3m2!1sen!2sin!4v1763830239817!5m2!1sen!2sin" width="980" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+            </div>
+            <p class="service-note">We currently service all locations within the highlighted region. Check your eligibility using the quote form above.</p>
+        </section>
+
+        <section id="documents" class="card">
+            <h2 class="section-title"><i class="fas fa-file-contract"></i> Required Documentation</h2>
+            <p>To finalize the purchase and transfer of ownership, please have the following documents ready for our pickup agent:</p>
+            <ul class="document-list">
+                <li><i class="fas fa-check-circle"></i> **Vehicle Title/Registration:** Must be clear and in your name.</li>
+                <li><i class="fas fa-check-circle"></i> **Owner ID Proof:** e.g., AADHAAR Card, Passport, or Driver's License.</li>
+                <li><i class="fas fa-check-circle"></i> **Trade License (If commercial vehicle):** Applicable for fleet or business-owned vehicles.</li>
+                <li><i class="fas fa-check-circle"></i> **Current Keys:** All available keys and remotes.</li>
+            </ul>
+            <p class="document-note">A Bill of Sale will be provided by our agent upon final payment.</p>
+        </section>
+
+        <section id="commitment" class="card light-bg">
+            <h2 class="section-title"><i class="fas fa-handshake"></i> Our Commitment to You</h2>
+            <p>We believe in **fair pricing** based on daily scrap metal market rates and a **hassle-free** pickup experience. Help us make our state cleaner, one vehicle at a time.</p>
+            <address>
+                <p>Need assistance? Call us at **(9247295472)** or email: **mdahmed.ma3@gmail.com**</p>
+            </address>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Scrap Vehicles Purchasing Agency. All Rights Reserved.</p>
+    </footer>
+
+    <script src="scrap.js"></script>
+</body>
+</html> 

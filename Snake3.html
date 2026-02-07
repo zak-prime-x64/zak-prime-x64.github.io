@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CyberPunk V2 Snake</title>
+    <style>
+        /* --- CSS Styles --- */
+        :root {
+            --bg-color: #050505;
+            --grid-line: #0f1f1f;
+            --neon-green: #39ff14;
+            --neon-pink: #ff00ff;
+            --neon-blue: #00ffff;
+            --text-color: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            touch-action: none;
+            user-select: none; 
+        }
+
+        #game-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+            padding: 5px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--neon-green);
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        #score-board {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px var(--neon-blue);
+            display: flex;
+            gap: 20px;
+        }
+
+        canvas {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+            display: block;
+            width: 100%;
+            max-width: 400px; 
+            aspect-ratio: 1/1;
+        }
+
+        /* Overlay for Start/Game Over */
+        #overlay {
+            position: absolute;
+            top: 40%; 
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            border: 2px solid var(--neon-pink);
+            padding: 20px;
+            text-align: center;
+            z-index: 10;
+            box-shadow: 0 0 30px var(--neon-pink);
+            width: 70%;
+            max-width: 280px;
+        }
+
+        .overlay-btn {
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px 20px;
+            font-family: inherit;
+            font-size: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .overlay-btn:active, .overlay-btn:hover {
+            background: var(--neon-green);
+            color: black;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+
+        /* Mobile Controls */
+        #mobile-controls {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .control-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .d-pad-btn {
+            background: rgba(0, 20, 0, 0.5);
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            touch-action: manipulation; 
+            box-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .d-pad-btn:active {
+            background: var(--neon-green);
+            color: black;
+            transform: scale(0.95);
+        }
+
+        #debug-log {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.8);
+            color: red;
+            font-size: 10px;
+            padding: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <h1>NEON SNAKE</h1>
+        <div id="score-board">
+            <span id="score-display">Score: 0</span>
+            <span id="highscore-display">Best: 0</span>
+        </div>
+        
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        
+        <!-- On-screen Controls -->
+        <div id="mobile-controls">
+            <div class="control-row">
+                <button class="d-pad-btn" id="btn-up">▲</button>
+            </div>
+            <div class="control-row">
+                <button class="d-pad-btn" id="btn-left">◀</button>
+                <button class="d-pad-btn" id="btn-down">▼</button>
+                <button class="d-pad-btn" id="btn-right">▶</button>
+            </div>
+        </div>
+
+        <div id="overlay">
+            <h2 id="overlay-title" style="color:var(--neon-pink); margin-top:0;">READY?</h2>
+            <p id="overlay-msg" style="font-size: 0.9rem;">Chill Mode Enabled</p>
+            <button id="start-btn" class="overlay-btn">START GAME</button>
+        </div>
+    </div>
+
+    <div id="debug-log"></div>
+
+    <script>
+        function logError(msg) {
+            const debugDiv = document.getElementById('debug-log');
+            debugDiv.style.display = 'block';
+            debugDiv.innerHTML += "Error: " + msg + "<br>";
+            console.error(msg);
+        }
+
+        window.onerror = function(message, source, lineno, colno, error) {
+            logError(message);
+        };
+
+        try {
+            // --- Game Logic ---
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            const scoreDisplay = document.getElementById('score-display');
+            const highScoreDisplay = document.getElementById('highscore-display');
+            const overlay = document.getElementById('overlay');
+            const overlayTitle = document.getElementById('overlay-title');
+            const startBtn = document.getElementById('start-btn');
+
+            // Game constants
+            const GRID_SIZE = 20;
+            const TILE_COUNT = 20; 
+            
+            // CHANGED: Speed increased to 180ms (Slow)
+            // Lower number = Faster, Higher number = Slower
+            const GAME_SPEED = 180; 
+
+            // Game state
+            let score = 0;
+            let highScore = localStorage.getItem('snakeHighScore') || 0;
+            let snake = [];
+            let food = { x: 0, y: 0 };
+            let velocity = { x: 0, y: 0 };
+            let nextVelocity = { x: 0, y: 0 };
+            let gameInterval;
+            let isGameRunning = false;
+
+            // Colors
+            const COLOR_SNAKE_HEAD = '#39ff14';
+            const COLOR_SNAKE_BODY = '#2db810';
+            const COLOR_FOOD = '#ff00ff';
+
+            // Init Display
+            highScoreDisplay.innerText = `Best: ${highScore}`;
+
+            // Event Listeners
+            startBtn.addEventListener('click', startGame);
+            document.addEventListener('keydown', keyDownEvent);
+
+            // Mobile Controls
+            const addBtnListener = (id, dx, dy) => {
+                const btn = document.getElementById(id);
+                const handleInput = (e) => {
+                    e.preventDefault(); 
+                    if (!isGameRunning) return;
+                    
+                    // Prevent 180 degree turns
+                    if (dx === 1 && velocity.x === -1) return;
+                    if (dx === -1 && velocity.x === 1) return;
+                    if (dy === 1 && velocity.y === -1) return;
+                    if (dy === -1 && velocity.y === 1) return;
+
+                    nextVelocity = { x: dx, y: dy };
+                };
+                btn.addEventListener('touchstart', handleInput, {passive: false});
+                btn.addEventListener('mousedown', handleInput);
+            };
+
+            addBtnListener('btn-up', 0, -1);
+            addBtnListener('btn-down', 0, 1);
+            addBtnListener('btn-left', -1, 0);
+            addBtnListener('btn-right', 1, 0);
+
+            function startGame() {
+                overlay.style.display = 'none';
+                resetGameVariables();
+                placeFood();
+                isGameRunning = true;
+                
+                if (gameInterval) clearInterval(gameInterval);
+                gameInterval = setInterval(gameLoop, GAME_SPEED);
+            }
+
+            function resetGameVariables() {
+                snake = [
+                    { x: 10, y: 10 },
+                    { x: 9, y: 10 },
+                    { x: 8, y: 10 }
+                ];
+                score = 0;
+                scoreDisplay.innerText = `Score: ${score}`;
+                velocity = { x: 1, y: 0 }; 
+                nextVelocity = { x: 1, y: 0 };
+            }
+
+            function gameLoop() {
+                if(!isGameRunning) return;
+                try {
+                    update();
+                    draw();
+                } catch (e) {
+                    logError(e.message);
+                    clearInterval(gameInterval);
+                }
+            }
+
+            function update() {
+                velocity = { ...nextVelocity };
+                const head = { x: snake[0].x + velocity.x, y: snake[0].y + velocity.y };
+
+                // Wall Collision
+                if (head.x < 0 || head.x >= TILE_COUNT || head.y < 0 || head.y >= TILE_COUNT) {
+                    triggerGameOver();
+                    return;
+                }
+
+                // Self Collision
+                for (let i = 0; i < snake.length; i++) {
+                    if (head.x === snake[i].x && head.y === snake[i].y) {
+                        triggerGameOver();
+                        return;
+                    }
+                }
+
+                snake.unshift(head);
+
+                // Food Collision
+                if (head.x === food.x && head.y === food.y) {
+                    score += 10;
+                    scoreDisplay.innerText = `Score: ${score}`;
+                    
+                    if (score > highScore) {
+                        highScore = score;
+                        highScoreDisplay.innerText = `Best: ${highScore}`;
+                        localStorage.setItem('snakeHighScore', highScore);
+                    }
+
+                    placeFood();
+                } else {
+                    snake.pop();
+                }
+            }
+
+            function draw() {
+                ctx.fillStyle = 'rgba(5, 5, 5, 1)'; 
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Draw Food
+                ctx.fillStyle = COLOR_FOOD;
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = COLOR_FOOD;
+                ctx.fillRect(food.x * GRID_SIZE + 2, food.y * GRID_SIZE + 2, GRID_SIZE - 4, GRID_SIZE - 4);
+                ctx.shadowBlur = 0;
+
+                // Draw Snake
+                snake.forEach((segment, index) => {
+                    if (index === 0) {
+                        ctx.fillStyle = COLOR_SNAKE_HEAD;
+                        ctx.shadowBlur = 15;
+                        ctx.shadowColor = COLOR_SNAKE_HEAD;
+                    } else {
+                        ctx.fillStyle = COLOR_SNAKE_BODY;
+                        ctx.shadowBlur = 0;
+                    }
+                    ctx.fillRect(segment.x * GRID_SIZE, segment.y * GRID_SIZE, GRID_SIZE - 2, GRID_SIZE - 2);
+                });
+                ctx.shadowBlur = 0;
+            }
+
+            function placeFood() {
+                let validPosition = false;
+                while (!validPosition) {
+                    food.x = Math.floor(Math.random() * TILE_COUNT);
+                    food.y = Math.floor(Math.random() * TILE_COUNT);
+                    validPosition = true;
+                    for (let segment of snake) {
+                        if (segment.x === food.x && segment.y === food.y) {
+                            validPosition = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            function triggerGameOver() {
+                isGameRunning = false;
+                clearInterval(gameInterval);
+                overlayTitle.innerText = "GAME OVER";
+                overlay.style.display = 'block';
+                startBtn.innerText = "TRY AGAIN";
+            }
+
+            function keyDownEvent(e) {
+                // Prevent scrolling for arrow keys
+                if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+                    e.preventDefault();
+                }
+
+                if (!isGameRunning) {
+                    if (e.code === 'Space' && overlay.style.display !== 'none') startGame();
+                    return;
+                }
+
+                switch (e.code) {
+                    case 'ArrowLeft': if (velocity.x !== 1) nextVelocity = { x: -1, y: 0 }; break;
+                    case 'ArrowUp': if (velocity.y !== 1) nextVelocity = { x: 0, y: -1 }; break;
+                    case 'ArrowRight': if (velocity.x !== -1) nextVelocity = { x: 1, y: 0 }; break;
+                    case 'ArrowDown': if (velocity.y !== -1) nextVelocity = { x: 0, y: 1 }; break;
+                }
+            }
+
+            // Init Draw
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0,0,400,400);
+
+        } catch (err) {
+            logError("Init Failed: " + err.message);
+        }
+    </script>
+</body>
+</html>
+

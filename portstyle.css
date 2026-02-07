@@ -1,0 +1,293 @@
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  color: #333;
+  line-height: 1.6;
+  margin: 20px 50px 20px 50px;
+  /* background-image: url(images/new\ york.webp); */
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 15px 50px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  border-radius: 20px;
+}
+
+nav .logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+nav ul li {
+  margin-left: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #333;
+  font-weight: bold;
+  padding: 6px 12px;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: #fff;
+  background: #4CAF50;
+  border-radius: 5px;
+}
+.ham-icon{
+  font-size: 25px;
+  font-weight: bold;
+  /* position: absolute; */
+  /* top: 5px;
+  right: 10px; */
+  cursor: pointer;
+}
+.hamburger{
+  background-color: #333;
+  border-color: #4CAF50;
+  border-style: solid;
+  border-radius: 30px;
+  box-shadow: #4CAF50;
+  overflow: hidden;
+  transition: 1s;
+  width: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0; 
+}
+.cross{
+  font-size: 40px;
+  font-weight: bold;
+  /* text-align: right; */
+  color: red;
+  cursor: pointer;
+  /* position: fixed; */
+}
+
+.pd .heading{
+  color: #fff;
+  padding-top: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+
+}
+.home h1{
+  font-family: 'Times New Roman', Times, serif;
+}
+/* .contents{
+  font-size: 15px;
+  color: #fff;
+  padding-top: 30px;
+} */
+.homeborder{
+   /* border-style: solid;   */
+   background-color: #f7fff0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  border-radius: 30px;
+
+  }
+.name{
+  font-size: 20px;
+  font-family: 'Times New Roman', Times, serif;
+  color: #88da0c ;
+  /* padding-bottom: 50px; */
+}
+section {
+  padding: 60px;
+  text-align: center;
+}
+.about h1{
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #4CAF50 ;
+}
+.contact h1{
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color:  #4CAF50 ;
+}
+.home h1{
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #88da0c ;
+}
+.image{
+  margin-top: 20px;
+}
+
+.image img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 100%;
+  border: 3px solid #4CAF50;
+  margin-bottom: 15px;
+  opacity: 0; 
+  animation: fadeIn 2s ease-in forwards;
+  box-shadow: 0 0 20px #4CAF50, 0 0 40px #4CAF50, 0 0 60px #4CAF50; 
+  transition: all 0.3s ease-in-out;
+}
+ @keyframes move {
+    0% { transform: translateY(0) translateX(0); opacity: 1; }
+    100% { transform: translateY(-100vh) translateX(50vw); opacity: 0; }
+  }
+
+
+.profile-pic:hover {
+  box-shadow: 0 0 30px #4CAF50, 0 0 60px #4CAF50, 0 0 90px #4CAF50;
+  transform: scale(1.05);
+}
+footer {
+  margin-top: 80px;
+  background: antiquewhite;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  /* border-top: 1px solid #30363d; */
+  border-radius: 20px;
+  color: #8b949e;
+}
+
+footer a {
+  color: #58a6ff;
+  margin: 0 10px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+footer a:hover {
+  color: #1f6feb;
+}
+  @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+.image-upload input {
+  display: block;
+  margin: 10px auto;
+}
+.indexbody{
+  background-color: antiquewhite;
+}
+.aboutbody{
+  /* border-style: solid; */
+   background-color: antiquewhite;
+  }
+  .contactbody{
+    background-color: antiquewhite;
+  }
+.contact-form {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #4CAF50;
+  border-radius: 6px;
+}
+
+.contact-form button {
+  width: 100%;
+  padding: 12px;
+  background: #4CAF50;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.contact-form button:hover{
+  background: #45a049;
+}
+input[type="text"],input[type="email"]{
+  border-style: solid;
+  border-radius: 10px;
+  font-size: 20px;
+  border-color: #4CAF50;
+}
+.mess{
+  border-style: none;
+  border-radius: 10px;
+  border-color: #4CAF50;
+  font-size: 20px;
+}
+.aboutme{
+  font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+ @media screen and (max-width:600px){
+  .homeborder{
+    width: 100%;
+  }
+  .nav .logo{
+    font-size: 10px;
+  }
+  body{
+    margin: 20px 20px 20px 20px;
+  }
+  .homeborder a {
+    font-size: 15px;
+  }
+  .ham-icon{
+    display: none;
+  }
+  .hamburger{
+    display: none;
+  }
+  .aboutbody a {
+    font-size: 15px;
+  }
+  .contactbody a {
+    font-size: 15px;
+  }
+  .homeborder h2{
+    font-size: 15px;
+  }
+  .aboutbody h2{
+    font-size: 15px;
+  }
+  .contactbody h2{
+    font-size: 15px;
+  }
+
+ }

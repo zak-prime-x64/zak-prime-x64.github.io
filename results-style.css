@@ -1,0 +1,25 @@
+body{
+    background-color: blanchedalmond;
+}
+table{
+    border: 1px black solid;
+    border-collapse: collapse;
+    width: 100%;
+}
+td{
+    text-align: center;
+    border: 1px black solid;
+    padding: 5px 5px 5px 5px;
+}
+.toprow{
+    background-color: #fff;
+    padding: 5px 5px 5px 5px;
+}
+.toprow a{
+    border-style: none;
+    color: red;
+    background-color: transparent;
+    font-weight: bold;
+    border-radius: 5px;
+    text-decoration: none;
+}

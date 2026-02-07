@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Pass Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+    
+        :root {
+            --dark-bg: #1e1e1e;
+            --form-bg: #2d2d2d;
+            --accent-green: #4caf50;
+            --light-text: #e0e0e0;
+            --border-color: #3e3e3e;
+            --shadow-color: rgba(76, 175, 80, 0.25);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px;
+            background-color: var(--form-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            padding: 40px 30px;
+            border-left: 5px solid var(--accent-green);
+        }
+
+        h1 {
+            color: var(--accent-green);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 5px var(--accent-green);
+        }
+
+        p {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .form-step {
+            display: none;
+            text-align: left;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--light-text);
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: #383838;
+            color: var(--light-text);
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1em;
+            appearance: none; /* For select consistency */
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="file"]:focus,
+        select:focus {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 10px var(--shadow-color);
+            outline: none;
+        }
+
+        /* Styling for file input to match the theme */
+        input[type="file"]::file-selector-button {
+            background-color: var(--accent-green);
+            color: var(--dark-bg);
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background-color: #388e3c;
+        }
+
+        /* Button Styling */
+        .button-group {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        .next-btn, .submit-btn {
+            background-color: var(--accent-green);
+            color: var(--dark-bg);
+        }
+
+        .prev-btn {
+            background-color: #607d8b;
+            color: var(--light-text);
+        }
+
+        .next-btn:hover, .submit-btn:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .prev-btn:hover {
+            background-color: #455a64;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Progress Bar Styling */
+        .progress-bar {
+            height: 8px;
+            background: var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-green);
+            transition: width 0.5s ease-in-out;
+        }
+
+        .footer-message {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #707070;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bus Pass Registration</h1>
+        <p>Fill the below form for your Bus Pass Registration.</p>
+        
+        <div class="progress-bar">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+
+        <form id="busPassForm">
+            <div class="form-step active" data-step="1">
+                <div class="form-group">
+                    <label for="studentName">Student Name</label>
+                    <input type="text" id="studentName" name="studentName" placeholder="Enter full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="fatherName">Father's Name</label>
+                    <input type="text" id="fatherName" name="fatherName" placeholder="Enter father's name" required>
+                </div>
+                <div class="form-group">
+                    <label for="motherName">Mother's Name</label>
+                    <input type="text" id="motherName" name="motherName" placeholder="Enter mother's name" required>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="next-btn" onclick="nextStep(1)">Next &rarr;</button>
+                </div>
+            </div>
+
+            <div class="form-step" data-step="2">
+                <div class="form-group">
+                    <label for="admissionNumber">Admission Number</label>
+                    <input type="text" id="admissionNumber" name="admissionNumber" placeholder="e.g., C012345" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" min="16" max="30" placeholder="Must be between 16 and 30" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactNumber">Contact Number</label>
+                    <input type="text" id="contactNumber" name="contactNumber" pattern="\d{10}" title="Ten digits number" placeholder="e.g., 9876543210" required>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevStep(2)">&larr; Previous</button>
+                    <button type="button" class="next-btn" onclick="nextStep(2)">Next &rarr;</button>
+                </div>
+            </div>
+
+            <div class="form-step" data-step="3">
+                <div class="form-group">
+                    <label for="course">Student Course</label>
+                    <select id="course" name="course" required>
+                        <option value="" disabled selected>Select Course</option>
+                        <option value="BTECH">B.Tech</option>
+                        <option value="MTECH">M.Tech</option>
+                        <option value="BBA">BBA</option>
+                        <option value="MBA">MBA</option>
+                        <option value="BSC">B.Sc</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="yearOfAdmission">Year of Admission</label>
+                    <select id="yearOfAdmission" name="yearOfAdmission" required>
+                        <option value="" disabled selected>Select Year</option>
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" max="" required>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevStep(3)">&larr; Previous</button>
+                    <button type="button" class="next-btn" onclick="nextStep(3)">Next &rarr;</button>
+                </div>
+            </div>
+
+            <div class="form-step" data-step="4">
+                <div class="form-group">
+                    <label for="uploadImage">Upload Student Image</label>
+                    <input type="file" id="uploadImage" name="uploadImage" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label for="identificationMarks">Identification Marks</label>
+                    <input type="text" id="identificationMarks" name="identificationMarks" placeholder="e.g., Mole on right cheek" required>
+                </div>
+                <div class="form-group">
+                    <label for="aadhaarNumber">Aadhaar Number</label>
+                    <input type="text" id="aadhaarNumber" name="aadhaarNumber" pattern="\d{12}" title="12-digit Aadhaar number" placeholder="Enter 12-digit Aadhaar" required>
+                </div>
+                <div class="button-group">
+                    <button type="button" class="prev-btn" onclick="prevStep(4)">&larr; Previous</button>
+                    <button type="submit" class="submit-btn">Submit Pass Request</button>
+                </div>
+            </div>
+        </form>
+
+        <p class="footer-message">
+            * All data is treated as strictly confidential and is used for official bus pass generation only.
+        </p>
+    </div>
+
+    <script>
+        const form = document.getElementById('busPassForm');
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        // Function to populate dropdowns dynamically
+        function setupForm() {
+            // Populate Year of Admission (last 10 years)
+            const yearSelect = document.getElementById('yearOfAdmission');
+            const currentYear = new Date().getFullYear();
+            for (let year = currentYear; year >= currentYear - 10; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+
+            // Set max date for Date of Birth (can't be future)
+            document.getElementById('dob').max = new Date().toISOString().split("T")[0];
+        }
+
+        // Function to update the view (hide/show steps and update progress)
+        function updateView() {
+            const steps = document.querySelectorAll('.form-step');
+            steps.forEach(step => {
+                const stepNum = parseInt(step.getAttribute('data-step'));
+                if (stepNum === currentStep) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+
+            // Update Progress Bar
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        // Basic validation for the current step
+        function validateStep(stepIndex) {
+            const currentDiv = document.querySelector(`.form-step[data-step="${stepIndex}"]`);
+            const inputs = currentDiv.querySelectorAll('[required]');
+            let isValid = true;
+
+            for (let input of inputs) {
+                if (!input.checkValidity()) {
+                    // Triggers the browser's default error message
+                    input.reportValidity();
+                    isValid = false;
+                    break;
+                }
+            }
+            return isValid;
+        }
+
+        // Navigate to the next step
+        function nextStep(stepIndex) {
+            if (validateStep(stepIndex)) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateView();
+                }
+            }
+        }
+
+        // Navigate to the previous step
+        function prevStep(stepIndex) {
+            if (currentStep > 1) {
+                currentStep--;
+                updateView();
+            }
+        }
+
+        // Handle form submission
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Check validation for the final step before submission
+            if (validateStep(totalSteps)) {
+                // In a real application, you would collect form data and send it to a server here.
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                
+                console.log("--- FORM DATA SUBMITTED ---");
+                console.log(data);
+
+                alert('✅ Registration Successful! Your premium bus pass request has been submitted.');
+                // Optionally reset the form: form.reset();
+                // Optionally redirect: window.location.href = 'confirmation.html';
+                
+                // For demonstration, reset to step 1 after success
+                currentStep = 1;
+                updateView();
+            }
+        });
+
+        // Initial setup on load
+        document.addEventListener('DOMContentLoaded', () => {
+            setupForm();
+            updateView();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+/* Base Styles */
+:root {
+    --primary-green: #38a169; /* Attractive Green */
+    --secondary-light: #e6fffa; /* Very Light Green/Teal Background */
+    --text-dark: #2d3748; /* Dark text for readability */
+    --question-color: #004d40; /* Darker Green for questions */
+    --answer-bg: #f7fafc; /* Near-white background for answers */
+    --border-light: #b2f5ea; /* Light border color */
+    --font-family: 'Poppins', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--secondary-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    transition: background-color 0.5s ease;
+}
+
+/* Header & Typography */
+header {
+    background-color: var(--primary-green);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    color: var(--question-color);
+    margin-bottom: 25px;
+    border-bottom: 3px solid var(--primary-green);
+    padding-bottom: 10px;
+}
+
+/* QA Card Styling (The core of the design) */
+.qa-card {
+    background-color: white;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.qa-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.question {
+    padding: 18px 25px;
+    background-color: var(--border-light); /* Light background for question */
+    color: var(--question-color);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.question:hover {
+    background-color: #a3e6a3; /* Subtle hover effect */
+}
+
+/* Toggle Icon Styling */
+.toggle-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.question.active .toggle-icon {
+    transform: rotate(45deg); /* Plus sign rotates to form an 'X' */
+}
+
+/* Answer Area Styling & Transitions */
+.answer {
+    /* Initially hide the answer by setting height to 0 and hiding content */
+    max-height: 0; 
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; 
+    background-color: var(--answer-bg);
+}
+
+.answer.show {
+    /* JavaScript adds this class to reveal the content */
+    max-height: 1000px; /* Large enough value to accommodate all answers */
+    padding: 20px 25px;
+    border-top: 1px dashed var(--primary-green);
+}
+
+/* Placeholder for answers (The blank space) */
+.answer-placeholder {
+    min-height: 50px; /* Ensures a visible blank space */
+    border: 1px dashed #ccc;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    color: #888;
+    /* This text should be replaced by the answer */
+    content: "--- Your Detailed Answer Goes Here ---"; 
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--question-color);
+    color: white;
+    margin-top: 50px;
+}
+
+/* Responsiveness (Mobile Friendly) */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .container {
+        margin: 20px auto;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .question {
+        padding: 15px 20px;
+        font-size: 0.95rem;
+    }
+}

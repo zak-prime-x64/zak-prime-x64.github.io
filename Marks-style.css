@@ -1,0 +1,69 @@
+body{
+    margin: 10px 30px 10px 30px;
+    background-color: rgb(255, 255, 244);
+}
+table{
+    border-style: solid;
+    border-collapse: collapse;
+    /* border-width: 100%; */
+    /* display:flex ; */
+}
+td{
+   border-style: solid;
+   border-collapse: collapse;
+   background-color: #fff;
+}
+tr{
+   border-style: solid;
+   border-collapse: collapse;
+   background-color: #fff;
+}
+.pd{
+    width: 100%;
+}
+.centertheading{
+    text-align: center;
+    font-weight: bold;
+    background-color: #ffce64;
+}
+.md{
+    margin-top: 50px;
+    width: 100%;
+    border-style: solid;
+    border-collapse: collapse;
+}
+.centermarks{
+    text-align: center;
+    font-weight: bold;
+    border-style: none;
+    border-collapse: collapse;
+    background-color: #ffce64;
+}
+.center{
+    text-align: center;
+    font-weight: bold;
+    border-style: solid;
+    border-collapse: collapse;
+    background-color: #fff;
+    /* border-style: none; */
+}
+.center-nobold{
+    text-align: center;
+    border-style: solid;
+    border-collapse: collapse;
+    background-color: #fff;
+    /* border-style: none; */
+}
+.butt{
+    /* display: flex;
+    align-items:center ; */
+    text-align: center;
+    margin-top: 30px;
+}
+.butt button{
+    border-style: solid;
+    border-radius: 30px;
+    color: White;
+    background-color: black;
+    padding: 3px 18px 3px 18px;
+}

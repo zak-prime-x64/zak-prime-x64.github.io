@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> [ZAKI HUSSAIN] | Front-end Developer Portfolio </title>
+    <link rel="stylesheet" href="stylefile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/boy.jfif">
+</head>
+<body>
+
+    <header>
+        <div class="logo">MY PORTFOLIO</div>
+        <nav class="nav-menu">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Get In Touch</a>
+        </nav>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">&#9776;</button>
+    </header>
+
+    <main>
+        <section id="about" class="section about-me-section">
+            <div class="container">
+                <h2 class="section-title">IM' ZAKI HUSSAIN</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Hello! I'm a passionate *Frontend Developer*, dedicated to creating exceptional digital experiences. My core expertise lies in transforming complex design concepts into high-performing, user-friendly, and visually appealing web applications. I believe that a perfect blend of robust code and artistic design is key to a successful project.</p>
+
+                        <p>I specialize in modern technologies. My work is focused on performance optimization, responsive design, and maintaining cross-browser compatibility. I thrive in fast-paced environments, using methodologies like to deliver projects efficiently and collaboratively. I am constantly learning and adapting to the ever-evolving web development landscape, ensuring I bring the latest and greatest tools to every challenge. My portfolio showcases a range of projects, all built with a commitment to quality and user experience.</p>
+                        <p>... (I believe in : (Elaborate on your technology stack, problem-solving skills, and passion for clean code.) ...)</p>
+                    </div>
+                    <div class="about-image-container">
+                        <div class="ghibli-frame">
+                            <img src="images/Jinwoo Baba.webp" alt="Image Not Found" class="ghibli-art">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section projects-section">
+            <div class="container">
+                <h2 class="section-title">Showcase of Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3>CANVAS</h3>
+                         <p>Iv'e created a wonderful canvas! You can draw anything...</p>
+                        <a href="projects/canvas.html" target="_blank">View Project</a>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>SCRAP VEHICLES PURCHASING AGENCY</h3>
+                         <p>Iv'e created a scrap vehicle collecting agency from local areas!...</p>
+                        <a href="projects/scrap.html" target="_blank">View Project</a>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>CYBERPUNK SNAKE V2</h3>
+                         <p>Iv'e created a wonderful game, just check it out!</p>
+                        <a href="projects/Snake3.html" target="_blank">View Project</a>
+                    </div>
+
+                    <div class="project-card">
+                        <h3>COMPUTER SCIENCE STUDENTS LIST</h3>
+                         <p>Iv'e created a sequential list for computer science studenhts!</p>
+                        <a href="projects/cse.html" target="_blank">View Project</a>
+                    </div>
+
+                     <div class="project-card">
+                        <h3>BUS PASS REGISTRATION</h3>
+                         <p>Iv'e created a Professional form to register the bus pass for students!</p>
+                        <a href="projects/Buss Psaa.html" target="_blank">View Project</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="username">Your Name:</label>
+                        <input type="text" id="username" name="username" placeholder="Enter your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-number">Contact Number:</label>
+                        <input type="tel" id="contact-number" name="contact-number" placeholder="Enter your number(optional)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your E-mail" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Write your Message'Here'" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-button">Send Message</button>
+                    <p id="form-message" class="hidden"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 [MY PORTFOLIO]. All rights reserved. Professional Frontend Developer.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
